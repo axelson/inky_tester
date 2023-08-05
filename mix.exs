@@ -60,6 +60,7 @@ defmodule InkyTester.MixProject do
       {:scenic_live_reload, ">= 0.0.0", targets: :host},
 
       # Dependencies for all targets except :host
+      {:scenic_driver_inky, path: "~/dev/forks/scenic_driver_inky", targets: @all_targets},
       {:nerves_pack, "~> 0.7.0", targets: @all_targets},
 
       # Dependencies for specific targets

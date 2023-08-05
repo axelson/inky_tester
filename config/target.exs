@@ -89,13 +89,24 @@ config :mdns_lite,
   ]
 
 config :inky_tester, :viewport,
-  size: {800, 600},
+  size: {400, 300},
   theme: :dark,
   default_scene: InkyTester.Scene.Home,
   drivers: [
     [
       module: Scenic.Driver.Local,
       position: [scaled: true, centered: true, orientation: :normal]
+    ],
+    [
+      module: ScenicDriverInky,
+      opts: [
+        type: :what,
+        accent: :red,
+        opts: %{
+          border: :black
+        }
+        # dithering: :halftone
+      ]
     ]
   ]
 
