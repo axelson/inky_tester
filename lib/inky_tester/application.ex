@@ -10,12 +10,11 @@ defmodule InkyTester.Application do
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: InkyTester.Supervisor]
+    viewport_config = Application.get_env(:inky_tester, :viewport)
 
     children =
       [
-        # Children for all targets
-        # Starts a worker by calling: InkyTester.Worker.start_link(arg)
-        # {InkyTester.Worker, arg},
+        {Scenic, [viewport_config]}
       ] ++ children(target())
 
     Supervisor.start_link(children, opts)

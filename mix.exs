@@ -47,6 +47,11 @@ defmodule InkyTester.MixProject do
       {:ring_logger, "~> 0.10.0"},
       {:toolshed, "~> 0.3.0"},
 
+      # Main app
+      # {:scenic, "~> 0.11.0"},
+      {:scenic, github: "ScenicFramework/scenic", override: true},
+      {:scenic_driver_local, "~> 0.11.0"},
+
       # Allow Nerves.Runtime on host to support development, testing and CI.
       # See config/host.exs for usage.
       {:nerves_runtime, "~> 0.13.0"},

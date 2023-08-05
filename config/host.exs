@@ -1,6 +1,16 @@
 import Config
 
-# Add configuration that is only needed when running on the host here.
+config :inky_tester, :viewport,
+  size: {800, 600},
+  theme: :dark,
+  default_scene: InkyTester.Scene.Home,
+  drivers: [
+    [
+      module: Scenic.Driver.Local,
+      window: [title: "inky_tester"],
+      on_close: :stop_system
+    ]
+  ]
 
 config :nerves_runtime,
   kv_backend:

@@ -20,6 +20,8 @@ config :nerves, :firmware, rootfs_overlay: "rootfs_overlay"
 
 config :nerves, source_date_epoch: "1691272465"
 
+config :scenic, :assets, module: InkyTester.Assets
+
 if Mix.target() == :host do
   import_config "host.exs"
 else

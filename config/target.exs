@@ -88,6 +88,17 @@ config :mdns_lite,
     }
   ]
 
+config :inky_tester, :viewport,
+  size: {800, 600},
+  theme: :dark,
+  default_scene: InkyTester.Scene.Home,
+  drivers: [
+    [
+      module: Scenic.Driver.Local,
+      position: [scaled: true, centered: true, orientation: :normal]
+    ]
+  ]
+
 # Import target specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 # Uncomment to use target specific configurations
