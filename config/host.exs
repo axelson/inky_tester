@@ -12,6 +12,16 @@ config :inky_tester, :viewport,
     ]
   ]
 
+case Mix.env() do
+  :dev ->
+    config :exsync,
+      reload_timeout: 150,
+      reload_callback: {ScenicLiveReload, :reload_current_scenes, []}
+
+  _ ->
+    nil
+end
+
 config :nerves_runtime,
   kv_backend:
     {Nerves.Runtime.KVBackend.InMemory,

@@ -56,6 +56,9 @@ defmodule InkyTester.MixProject do
       # See config/host.exs for usage.
       {:nerves_runtime, "~> 0.13.0"},
 
+      # Host-only
+      {:scenic_live_reload, ">= 0.0.0", targets: :host},
+
       # Dependencies for all targets except :host
       {:nerves_pack, "~> 0.7.0", targets: @all_targets},
 
