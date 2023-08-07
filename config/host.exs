@@ -1,8 +1,19 @@
 import Config
 
+inky_displays = %{
+  :impression_7_3 => %{
+    size: {800, 480},
+   },
+  :phat_ssd1608 => %{
+    size: {250, 122},
+   }
+}
+
+display = inky_displays.phat_ssd1608
+
 config :inky_tester, :viewport,
-  size: {800, 600},
-  theme: :dark,
+  size: display.size,
+  theme: :light,
   default_scene: InkyTester.Scene.Home,
   drivers: [
     [

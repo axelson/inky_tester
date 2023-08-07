@@ -88,26 +88,45 @@ config :mdns_lite,
     }
   ]
 
-config :inky_tester, :viewport,
-  size: {400, 300},
-  theme: :dark,
-  default_scene: InkyTester.Scene.Home,
-  drivers: [
-    [
-      module: Scenic.Driver.Local,
-      position: [scaled: true, centered: true, orientation: :normal]
-    ],
-    [
+inky_displays = %{
+  :impression_7_3 => %{
+    size: {800, 480},
+    driver: [
       module: ScenicDriverInky,
       opts: [
-        type: :what,
+        type: :impression_7_3,
+        color_low: 120,
+        dithering: false,
+        interval: 2_000
+      ]
+    ]
+  },
+  :phat_ssd1608 => %{
+    size: {250, 122},
+    driver: [
+      module: ScenicDriverInky,
+      opts: [
+        type: :phat_ssd1608,
         accent: :red,
         opts: %{
           border: :black
         }
-        # dithering: :halftone
       ]
     ]
+  }
+}
+
+display = inky_displays.phat_ssd1608
+
+config :inky_tester, :viewport,
+  size: display.size,
+  theme: :dark,
+  default_scene: InkyTester.Scene.Home,
+  drivers: [
+    [
+      module: Scenic.Driver.Local
+    ],
+    display.driver
   ]
 
 # Import target specific config. This must remain at the bottom
