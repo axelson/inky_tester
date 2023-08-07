@@ -89,6 +89,18 @@ config :mdns_lite,
   ]
 
 inky_displays = %{
+  :impression_5_7 => %{
+    size: {600, 448},
+    driver: [
+      module: ScenicDriverInky,
+      opts: [
+        type: :impression_5_7,
+        color_low: 120,
+        dithering: false,
+        interval: 2_000
+      ]
+    ]
+  },
   :impression_7_3 => %{
     size: {800, 480},
     driver: [
