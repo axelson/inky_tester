@@ -14,7 +14,8 @@ defmodule InkyTester.Application do
 
     children =
       [
-        {Scenic, [viewport_config]}
+        {Scenic, [viewport_config]},
+        InkyTester.StartupServer
       ] ++ children(target())
 
     Supervisor.start_link(children, opts)
