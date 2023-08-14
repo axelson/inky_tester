@@ -128,7 +128,7 @@ inky_displays = %{
   }
 }
 
-display = inky_displays.phat_ssd1608
+display = inky_displays.impression_7_3
 
 config :inky_tester, :viewport,
   size: display.size,
@@ -140,6 +140,34 @@ config :inky_tester, :viewport,
     ],
     display.driver
   ]
+
+config :mahaul, mix_env: Mix.env()
+
+config :dash, Dash.QuantumScheduler,
+  jobs: [
+    {"*/30 * * * *", {Dash.Weather.Server, :update_weather, []}}
+  ]
+
+config :dash, wait_for_network: true
+config :dash, ecto_repos: [Dash.Repo]
+
+config :dash, Dash.Repo,
+  database: "/data/dash_database.db",
+  migration_primary_key: [type: :binary_id],
+  journal_mode: :wal,
+  cache_size: -64_000,
+  temp_store: :memory,
+  pool_size: 1
+
+config :dash, locations: []
+
+case Mix.target() do
+  :rpi3 ->
+    config :nerves, :firmware, fwup_conf: "config/rpi3/fwup.conf"
+
+  _ ->
+    nil
+end
 
 # Import target specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

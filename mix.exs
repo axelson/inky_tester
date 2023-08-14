@@ -51,23 +51,28 @@ defmodule InkyTester.MixProject do
       # {:scenic, "~> 0.11.0"},
       {:scenic, github: "ScenicFramework/scenic", override: true},
       {:scenic_driver_local, "~> 0.11.0"},
+      {:dash, path: "~/dev/impression_dash"},
 
       # Allow Nerves.Runtime on host to support development, testing and CI.
       # See config/host.exs for usage.
       {:nerves_runtime, "~> 0.13.0"},
 
       # Host-only
-      {:scenic_live_reload, ">= 0.0.0", targets: :host},
+      # {:scenic_live_reload, ">= 0.0.0", targets: :host},
+      {:scenic_live_reload, path: "~/dev/scenic_live_reload", targets: :host},
+      {:exsync, path: "~/dev/forks/exsync", targets: :host, override: true},
+      # {:exsync, github: "falood/exsync", targets: :host, override: true},
 
       # Dependencies for all targets except :host
       # scenic_driver_inky
       # {:scenic_driver_inky, "~> 1.0", targets: @all_targets},
-      {:scenic_driver_inky, github: "pappersverk/scenic_driver_inky", targets: @all_targets},
-      # {:scenic_driver_inky, path: "~/dev/forks/scenic_driver_inky", targets: @all_targets},
+      # {:scenic_driver_inky, github: "pappersverk/scenic_driver_inky", targets: @all_targets},
+      {:scenic_driver_inky, path: "~/dev/forks/scenic_driver_inky", targets: @all_targets},
 
       # inky
       # Need https://github.com/pappersverk/inky/pull/38
-      {:inky, github: "pappersverk/inky", targets: @all_targets, override: true},
+      # {:inky, github: "pappersverk/inky", targets: @all_targets, override: true},
+      {:inky, path: "~/dev/forks/inky", targets: @all_targets, override: true},
       {:nerves_pack, "~> 0.7.0", targets: @all_targets},
 
       # Dependencies for specific targets

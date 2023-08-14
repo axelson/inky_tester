@@ -9,7 +9,7 @@ inky_displays = %{
    }
 }
 
-display = inky_displays.phat_ssd1608
+display = inky_displays.impression_7_3
 
 config :inky_tester, :viewport,
   size: display.size,
@@ -50,3 +50,26 @@ config :nerves_runtime,
        "a.nerves_fw_platform" => "host",
        "a.nerves_fw_version" => "0.0.0"
      }}
+
+config :vintage_net,
+  resolvconf: "/dev/null",
+  persistence: VintageNet.Persistence.Null
+
+config :dash, Dash.QuantumScheduler,
+  jobs: [
+    {"*/30 * * * *", {Dash.Weather.Server, :update_weather, []}}
+  ]
+
+config :dash, wait_for_network: true
+config :dash, ecto_repos: [Dash.Repo]
+
+config :dash, Dash.Repo,
+  database: "priv/dash_database.db",
+  migration_primary_key: [type: :binary_id],
+  journal_mode: :wal,
+  cache_size: -64_000,
+  temp_store: :memory,
+  pool_size: 1
+
+config :dash, locations: []
+
