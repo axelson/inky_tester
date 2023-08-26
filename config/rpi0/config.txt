@@ -53,3 +53,11 @@ dtparam=act_led_trigger=heartbeat
 # To turn the LED completely off comment out the previous line and uncomment
 # the next.
 #dtparam=act_led_trigger=none
+
+
+# JAX
+
+# Use an edid.dat file to force the frame buffer to be larger than the default 720 x 480
+# which is too small to adaquately drive the Inky Impression 7.3"
+# Source: https://github.com/stweil/raspberrypi-documentation/blob/9719a8ad57faf68096bee6dabb18aa728ad3c75d/configuration/config-txt.md#hdmi_edid_file
+hdmi_edid_file=1

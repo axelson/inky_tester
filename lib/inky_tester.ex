@@ -8,9 +8,25 @@ defmodule InkyTester do
     Scenic.ViewPort.set_root(view_port, Dash.Scene.ColorTest, %{})
   end
 
-  def fb do
-    {:ok, mycap} = RpiFbCapture.start_link()
-    RpiFbCapture.save(mycap, "/tmp/cap4.ppm", :ppm)
+  def dash do
+    [view_port] = FetchScenicInfo.get_view_ports()
+    Scenic.ViewPort.set_root(view_port, Dash.Scene.Home, %{})
+  end
+
+  def fonts do
+    [view_port] = FetchScenicInfo.get_view_ports()
+    Scenic.ViewPort.set_root(view_port, Dash.AvailableFonts, %{})
+  end
+
+  case Code.ensure_compiled(RpiFbCapture) do
+    {:module, _} ->
+      def fb do
+        {:ok, mycap} = RpiFbCapture.start_link()
+        RpiFbCapture.save(mycap, "/tmp/cap4.ppm", :ppm)
+      end
+
+    _ ->
+      nil
   end
 end
 

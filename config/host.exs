@@ -2,19 +2,21 @@ import Config
 
 inky_displays = %{
   :impression_7_3 => %{
-    size: {800, 480},
-   },
+    size: {800 * 2, 480 * 2}
+  },
   :phat_ssd1608 => %{
-    size: {250, 122},
-   }
+    size: {250 * 2, 122 * 2}
+  }
 }
 
 display = inky_displays.impression_7_3
 
 config :inky_tester, :viewport,
+  name: :main_viewport,
   size: display.size,
-  theme: :light,
-  default_scene: InkyTester.Scene.Home,
+  theme: :dark,
+  # default_scene: InkyTester.Scene.Home,
+  default_scene: Dash.Scene.Home,
   drivers: [
     [
       module: Scenic.Driver.Local,
@@ -22,6 +24,8 @@ config :inky_tester, :viewport,
       on_close: :stop_system
     ]
   ]
+
+config :inky_tester, start_button_handler: false
 
 case Mix.env() do
   :dev ->
@@ -57,11 +61,16 @@ config :vintage_net,
 
 config :dash, Dash.QuantumScheduler,
   jobs: [
-    {"*/30 * * * *", {Dash.Weather.Server, :update_weather, []}}
+    # Disable the weather server when not using/testing to save API calls
+    # Note: on startup the weather is fetched once already
+    # {"*/30 * * * *", {Dash.Weather.Server, :update_weather, []}}
+    {"*/1 * * * *", {Dash.Scene.Home, :refresh, []}},
+    {"*/1 * * * *", {Dash.PomodoroServer, :refresh, []}}
   ]
 
 config :dash, wait_for_network: true
 config :dash, ecto_repos: [Dash.Repo]
+config :dash, gh_stats_base_url: "http://192.168.1.2:4004"
 
 config :dash, Dash.Repo,
   database: "priv/dash_database.db",
@@ -72,4 +81,4 @@ config :dash, Dash.Repo,
   pool_size: 1
 
 config :dash, locations: []
-
+config :dash, :scale, 2

@@ -88,6 +88,16 @@ config :mdns_lite,
     }
   ]
 
+# Enable mdns lite dns bridging
+config :mdns_lite,
+  dns_bridge_enabled: true,
+  dns_bridge_ip: {127, 0, 0, 53},
+  dns_bridge_port: 53,
+  dns_bridge_recursive: true
+
+config :vintage_net,
+  additional_name_servers: [{127, 0, 0, 53}]
+
 inky_displays = %{
   :impression_5_7 => %{
     size: {600, 448},
@@ -131,9 +141,11 @@ inky_displays = %{
 display = inky_displays.impression_7_3
 
 config :inky_tester, :viewport,
+  name: :main_viewport,
   size: display.size,
   theme: :dark,
-  default_scene: InkyTester.Scene.Home,
+  # default_scene: InkyTester.Scene.Home,
+  default_scene: Dash.Scene.Home,
   drivers: [
     [
       module: Scenic.Driver.Local
@@ -141,15 +153,21 @@ config :inky_tester, :viewport,
     display.driver
   ]
 
+config :inky_tester, start_button_handler: true
+
 config :mahaul, mix_env: Mix.env()
 
 config :dash, Dash.QuantumScheduler,
   jobs: [
-    {"*/30 * * * *", {Dash.Weather.Server, :update_weather, []}}
+    {"29,59 5-22 * * *", {Dash.Weather.Server, :update_weather, []}},
+    {"*/1 * * * *", {Dash.PomodoroServer, :refresh, []}},
+    {"*/30 5-22 * * *", {Dash.Scene.Home, :refresh, []}},
+    {"0 4 * * *", {Dash.Scene.Home, :switch_quotes, []}}
   ]
 
 config :dash, wait_for_network: true
 config :dash, ecto_repos: [Dash.Repo]
+config :dash, gh_stats_base_url: "http://192.168.1.2:4004"
 
 config :dash, Dash.Repo,
   database: "/data/dash_database.db",
@@ -162,6 +180,9 @@ config :dash, Dash.Repo,
 config :dash, locations: []
 
 case Mix.target() do
+  :rpi0 ->
+    config :nerves, :firmware, fwup_conf: "config/rpi0/fwup.conf"
+
   :rpi3 ->
     config :nerves, :firmware, fwup_conf: "config/rpi3/fwup.conf"
 

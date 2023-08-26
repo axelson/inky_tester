@@ -46,10 +46,13 @@ defmodule InkyTester.MixProject do
       {:shoehorn, "~> 0.9.1"},
       {:ring_logger, "~> 0.10.0"},
       {:toolshed, "~> 0.3.0"},
+      {:rexbug, "~> 1.0"},
+      {:extrace, "~> 0.5.0"},
 
       # Main app
       # {:scenic, "~> 0.11.0"},
-      {:scenic, github: "ScenicFramework/scenic", override: true},
+      # {:scenic, github: "ScenicFramework/scenic", override: true},
+      {:scenic, path: "~/dev/forks/scenic", override: true},
       {:scenic_driver_local, "~> 0.11.0"},
       {:dash, path: "~/dev/impression_dash"},
 
@@ -71,9 +74,10 @@ defmodule InkyTester.MixProject do
 
       # inky
       # Need https://github.com/pappersverk/inky/pull/38
-      # {:inky, github: "pappersverk/inky", targets: @all_targets, override: true},
-      {:inky, path: "~/dev/forks/inky", targets: @all_targets, override: true},
+      # {:inky, github: "pappersverk/inky", override: true},
+      {:inky, path: "~/dev/forks/inky", override: true},
       {:nerves_pack, "~> 0.7.0", targets: @all_targets},
+      {:nerves_time_zones, "~> 0.3.0", targets: @all_targets},
 
       # Dependencies for specific targets
       # NOTE: It's generally low risk and recommended to follow minor version
@@ -102,7 +106,8 @@ defmodule InkyTester.MixProject do
       cookie: "#{@app}_cookie",
       include_erts: &Nerves.Release.erts/0,
       steps: [&Nerves.Release.init/1, :assemble],
-      strip_beams: Mix.env() == :prod or [keep: ["Docs"]]
+      strip_beams: Mix.env() == :prod or [keep: ["Docs"]],
+      config_providers: [{Jax.RuntimeConfigProvider, "/data/.target.secret.exs"}]
     ]
   end
 end

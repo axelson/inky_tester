@@ -13,10 +13,12 @@ defmodule InkyTester.Application do
     viewport_config = Application.get_env(:inky_tester, :viewport)
 
     children =
-      [
-        {Scenic, [viewport_config]},
-        InkyTester.StartupServer
-      ] ++ children(target())
+      ([
+         {Scenic, [viewport_config]},
+         start_button_handler(),
+         InkyTester.StartupServer
+       ] ++ children(target()))
+      |> List.flatten()
 
     Supervisor.start_link(children, opts)
   end
@@ -31,14 +33,21 @@ defmodule InkyTester.Application do
   end
 
   def children(_target) do
-    [
-      # Children for all targets except host
-      # Starts a worker by calling: InkyTester.Worker.start_link(arg)
-      # {InkyTester.Worker, arg},
-    ]
+    []
   end
 
   def target() do
     Application.get_env(:inky_tester, :target)
+  end
+
+  defp start_button_handler do
+    if Application.fetch_env!(:inky_tester, :start_button_handler) do
+      [
+        InkyTester.ButtonHandler,
+        {Inky.ImpressionButtons, handler: InkyTester.ButtonHandler}
+      ]
+    else
+      []
+    end
   end
 end

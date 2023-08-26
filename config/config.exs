@@ -8,6 +8,8 @@ import Config
 # Enable the Nerves integration with Mix
 Application.start(:nerves_bootstrap)
 
+config :elixir, time_zone_database: Zoneinfo.TimeZoneDatabase
+
 config :inky_tester, target: Mix.target()
 
 # Customize non-Elixir parts of the firmware. See
@@ -22,9 +24,9 @@ config :nerves, source_date_epoch: "1691272465"
 
 config :scenic, :assets, module: InkyTester.Assets
 
-config :logger,
-  handle_otp_reports: true,
-  handle_sasl_reports: true
+# config :logger,
+#   handle_otp_reports: true,
+#   handle_sasl_reports: true
 
 if Mix.target() == :host do
   import_config "host.exs"
