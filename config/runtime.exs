@@ -1,5 +1,7 @@
 import Config
 
+timezone = Application.fetch_env!(:dash, :timezone)
+
 if config_target() == :host do
   config :dash,
     locations:
@@ -30,9 +32,32 @@ if config_target() == :host do
       )
       |> List.flatten()
 
-  path = "/mnt/arch_linux/home/jason/dev/inky_impression_livebook/.target.secret.exs"
-  # path = "/mnt/arch_linux/home/jason/dev/inky_impression_livebook/.target.public.exs"
+  config :dash, Dash.QuantumScheduler,
+    timezone: timezone,
+    jobs: [
+      # Disable the weather server when not using/testing to save API calls
+      # Note: on startup the weather is fetched once already
+      # {"*/30 * * * *", {Dash.Weather.Server, :update_weather, []}}
+      # {"*/1 * * * *", {Dash.Scene.Home, :refresh, []}},
+      {"*/1 5-22 * * *", {Dash.Scene.Home, :refresh, []}},
+      {"*/1 * * * *", {Dash.PomodoroServer, :refresh, []}}
+    ]
+
+  # path = "/mnt/arch_linux/home/jason/dev/inky_impression_livebook/.target.secret.exs"
+  path = "/mnt/arch_linux/home/jason/dev/inky_impression_livebook/.target.public.exs"
+
   if File.exists?(path) do
     Code.require_file(path)
   end
+end
+
+if config_target() != :target do
+  config :dash, Dash.QuantumScheduler,
+  timezone: timezone,
+  jobs: [
+    {"29,59 5-22 * * *", {Dash.Weather.Server, :update_weather, []}},
+    {"*/1 * * * *", {Dash.PomodoroServer, :refresh, []}},
+    {"*/30 5-22 * * *", {Dash.Scene.Home, :refresh, []}},
+    {"0 4 * * *", {Dash.Scene.Home, :switch_quotes, []}}
+  ]
 end

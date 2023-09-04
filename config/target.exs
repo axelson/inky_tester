@@ -93,7 +93,7 @@ config :mdns_lite,
   dns_bridge_enabled: true,
   dns_bridge_ip: {127, 0, 0, 53},
   dns_bridge_port: 53,
-  dns_bridge_recursive: true
+  dns_bridge_recursive: false
 
 config :vintage_net,
   additional_name_servers: [{127, 0, 0, 53}]
@@ -157,14 +157,8 @@ config :inky_tester, start_button_handler: true
 
 config :mahaul, mix_env: Mix.env()
 
-config :dash, Dash.QuantumScheduler,
-  jobs: [
-    {"29,59 5-22 * * *", {Dash.Weather.Server, :update_weather, []}},
-    {"*/1 * * * *", {Dash.PomodoroServer, :refresh, []}},
-    {"*/30 5-22 * * *", {Dash.Scene.Home, :refresh, []}},
-    {"0 4 * * *", {Dash.Scene.Home, :switch_quotes, []}}
-  ]
-
+# config :dash, :timezone, "Pacific/Honolulu"
+config :dash, :timezone, "America/New_York"
 config :dash, wait_for_network: true
 config :dash, ecto_repos: [Dash.Repo]
 config :dash, gh_stats_base_url: "http://192.168.1.2:4004"
@@ -185,6 +179,8 @@ case Mix.target() do
 
   :rpi3 ->
     config :nerves, :firmware, fwup_conf: "config/rpi3/fwup.conf"
+
+  # nil
 
   _ ->
     nil

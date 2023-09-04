@@ -59,15 +59,8 @@ config :vintage_net,
   resolvconf: "/dev/null",
   persistence: VintageNet.Persistence.Null
 
-config :dash, Dash.QuantumScheduler,
-  jobs: [
-    # Disable the weather server when not using/testing to save API calls
-    # Note: on startup the weather is fetched once already
-    # {"*/30 * * * *", {Dash.Weather.Server, :update_weather, []}}
-    {"*/1 * * * *", {Dash.Scene.Home, :refresh, []}},
-    {"*/1 * * * *", {Dash.PomodoroServer, :refresh, []}}
-  ]
-
+# config :dash, :timezone, "Pacific/Honolulu"
+config :dash, :timezone, "America/New_York"
 config :dash, wait_for_network: true
 config :dash, ecto_repos: [Dash.Repo]
 config :dash, gh_stats_base_url: "http://192.168.1.2:4004"

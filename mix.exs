@@ -49,12 +49,19 @@ defmodule InkyTester.MixProject do
       {:rexbug, "~> 1.0"},
       {:extrace, "~> 0.5.0"},
 
+      # Needed because we're using the released version of Scenic
+      {:nimble_options, "0.5.2", override: true},
+      {:elixir_make, "0.7.7", override: true},
+
       # Main app
-      # {:scenic, "~> 0.11.0"},
+      {:scenic, "~> 0.11.0"},
       # {:scenic, github: "ScenicFramework/scenic", override: true},
-      {:scenic, path: "~/dev/forks/scenic", override: true},
+      # {:scenic, path: "~/dev/forks/scenic", override: true},
       {:scenic_driver_local, "~> 0.11.0"},
-      {:dash, path: "~/dev/impression_dash"},
+      # Not using this since the `main` branch is broken
+      # {:scenic_driver_local, path: "~/dev/forks/scenic_driver_local", override: true},
+      {:dash, github: "axelson/impression_dash"},
+      # {:dash, path: "~/dev/impression_dash"},
 
       # Allow Nerves.Runtime on host to support development, testing and CI.
       # See config/host.exs for usage.
@@ -70,12 +77,15 @@ defmodule InkyTester.MixProject do
       # scenic_driver_inky
       # {:scenic_driver_inky, "~> 1.0", targets: @all_targets},
       # {:scenic_driver_inky, github: "pappersverk/scenic_driver_inky", targets: @all_targets},
-      {:scenic_driver_inky, path: "~/dev/forks/scenic_driver_inky", targets: @all_targets},
+      {:scenic_driver_inky, github: "axelson/scenic_driver_inky", branch: "jax", targets: @all_targets},
+      # {:scenic_driver_inky, path: "~/dev/forks/scenic_driver_inky", targets: @all_targets},
 
       # inky
       # Need https://github.com/pappersverk/inky/pull/38
       # {:inky, github: "pappersverk/inky", override: true},
-      {:inky, path: "~/dev/forks/inky", override: true},
+      # My tested version
+      {:inky, github: "axelson/inky", branch: "jax-working", override: true},
+      # {:inky, path: "~/dev/forks/inky", override: true},
       {:nerves_pack, "~> 0.7.0", targets: @all_targets},
       {:nerves_time_zones, "~> 0.3.0", targets: @all_targets},
 

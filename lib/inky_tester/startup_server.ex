@@ -6,7 +6,8 @@ defmodule InkyTester.StartupServer do
   end
 
   def init(_) do
-    Process.sleep(3_000)
+    # Hacks!
+    Process.sleep(14_000)
     :persistent_term.put(:scenic_driver_inky_ready, true)
 
     {:ok, []}
