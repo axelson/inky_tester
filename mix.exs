@@ -58,10 +58,11 @@ defmodule InkyTester.MixProject do
       # {:scenic, github: "ScenicFramework/scenic", override: true},
       # {:scenic, path: "~/dev/forks/scenic", override: true},
       {:scenic_driver_local, "~> 0.11.0"},
+      # {:scenic_driver_local, github: "ScenicFramework/scenic_driver_local", override: true},
       # Not using this since the `main` branch is broken
       # {:scenic_driver_local, path: "~/dev/forks/scenic_driver_local", override: true},
-      {:dash, github: "axelson/impression_dash"},
-      # {:dash, path: "~/dev/impression_dash"},
+      # {:dash, github: "axelson/impression_dash"},
+      {:dash, path: "~/dev/impression_dash"},
 
       # Allow Nerves.Runtime on host to support development, testing and CI.
       # See config/host.exs for usage.
@@ -77,7 +78,8 @@ defmodule InkyTester.MixProject do
       # scenic_driver_inky
       # {:scenic_driver_inky, "~> 1.0", targets: @all_targets},
       # {:scenic_driver_inky, github: "pappersverk/scenic_driver_inky", targets: @all_targets},
-      {:scenic_driver_inky, github: "axelson/scenic_driver_inky", branch: "jax", targets: @all_targets},
+      {:scenic_driver_inky,
+       github: "axelson/scenic_driver_inky", branch: "jax", targets: @all_targets},
       # {:scenic_driver_inky, path: "~/dev/forks/scenic_driver_inky", targets: @all_targets},
 
       # inky
@@ -99,7 +101,12 @@ defmodule InkyTester.MixProject do
       {:nerves_system_rpi2, "~> 1.19", runtime: false, targets: :rpi2},
       {:nerves_system_rpi3, "~> 1.19", runtime: false, targets: :rpi3},
       {:nerves_system_rpi3a, "~> 1.19", runtime: false, targets: :rpi3a},
-      {:nerves_system_rpi4, "~> 1.19", runtime: false, targets: :rpi4},
+      # {:nerves_system_rpi4, "~> 1.19", runtime: false, targets: :rpi4},
+      {:nerves_system_rpi4,
+       path: "~/dev/forks/nerves_system_rpi4",
+       runtime: false,
+       targets: :rpi4,
+       nerves: [compile: true]},
       {:nerves_system_bbb, "~> 2.14", runtime: false, targets: :bbb},
       {:nerves_system_osd32mp1, "~> 0.10", runtime: false, targets: :osd32mp1},
       {:nerves_system_x86_64, "~> 1.19", runtime: false, targets: :x86_64},

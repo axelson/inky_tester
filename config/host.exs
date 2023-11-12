@@ -11,24 +11,24 @@ inky_displays = %{
 
 display = inky_displays.impression_7_3
 
-config :inky_tester, :viewport,
-  name: :main_viewport,
-  size: display.size,
-  theme: :dark,
-  # default_scene: InkyTester.Scene.Home,
-  default_scene: Dash.Scene.Home,
-  drivers: [
-    [
-      module: Scenic.Driver.Local,
-      window: [title: "inky_tester"],
-      on_close: :stop_system
-    ]
-  ]
-
 config :inky_tester, start_button_handler: false
 
-case Mix.env() do
+case config_env() do
   :dev ->
+    config :inky_tester, :viewport,
+      name: :main_viewport,
+      size: display.size,
+      theme: :dark,
+      # default_scene: InkyTester.Scene.Home,
+      default_scene: Dash.Scene.Home,
+      drivers: [
+        [
+          module: Scenic.Driver.Local,
+          window: [title: "inky_tester"],
+          on_close: :stop_system
+        ]
+      ]
+
     config :exsync,
       reload_timeout: 150,
       reload_callback: {ScenicLiveReload, :reload_current_scenes, []}
@@ -59,8 +59,8 @@ config :vintage_net,
   resolvconf: "/dev/null",
   persistence: VintageNet.Persistence.Null
 
-# config :dash, :timezone, "Pacific/Honolulu"
-config :dash, :timezone, "America/New_York"
+config :dash, :timezone, "Pacific/Honolulu"
+# config :dash, :timezone, "America/New_York"
 config :dash, wait_for_network: true
 config :dash, ecto_repos: [Dash.Repo]
 config :dash, gh_stats_base_url: "http://192.168.1.2:4004"

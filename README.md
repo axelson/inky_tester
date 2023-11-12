@@ -8,6 +8,11 @@ See also: https://github.com/pappersverk/sample_scenic_inky
 
 ![Photo of inky displays running this code](extra/sample.jpg)
 
+## Initial setup (after installing to sd card)
+
+`ssh nerves.local` (or `inky-impression-7-3.local`) and then run:
+- `Dash.Release.migrate()`
+
 ## Getting Started
 
 To start your Nerves app:

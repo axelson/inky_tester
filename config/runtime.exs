@@ -43,21 +43,23 @@ if config_target() == :host do
       {"*/1 * * * *", {Dash.PomodoroServer, :refresh, []}}
     ]
 
-  # path = "/mnt/arch_linux/home/jason/dev/inky_impression_livebook/.target.secret.exs"
-  path = "/mnt/arch_linux/home/jason/dev/inky_impression_livebook/.target.public.exs"
+  path = Path.join([__DIR__, "..", ".target.secret.exs"])
+  # path = Path.join([__DIR__, "..", ".target.public.exs"])
 
   if File.exists?(path) do
     Code.require_file(path)
   end
+
+  # config :dash, :glamour_shot?, true
 end
 
-if config_target() != :target do
+if config_target() != :host do
   config :dash, Dash.QuantumScheduler,
-  timezone: timezone,
-  jobs: [
-    {"29,59 5-22 * * *", {Dash.Weather.Server, :update_weather, []}},
-    {"*/1 * * * *", {Dash.PomodoroServer, :refresh, []}},
-    {"*/30 5-22 * * *", {Dash.Scene.Home, :refresh, []}},
-    {"0 4 * * *", {Dash.Scene.Home, :switch_quotes, []}}
-  ]
+    timezone: timezone,
+    jobs: [
+      {"29,59 5-22 * * *", {Dash.Weather.Server, :update_weather, []}},
+      {"*/1 * * * *", {Dash.PomodoroServer, :refresh, []}},
+      {"*/30 5-22 * * *", {Dash.Scene.Home, :refresh, []}},
+      {"0 4 * * *", {Dash.Scene.Home, :switch_quotes, []}}
+    ]
 end

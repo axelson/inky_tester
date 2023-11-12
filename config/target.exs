@@ -6,6 +6,20 @@ import Config
 
 config :logger, backends: [RingLogger]
 
+config :logger, RingLogger,
+  buffers: %{
+    low_priority: %{
+      levels: [:warning, :notice, :info, :debug],
+      max_size: 2048
+    },
+    high_priority: %{
+      levels: [:emergency, :alert, :critical, :error],
+      max_size: 2048
+    }
+  },
+  metadata: [:mfa, :line],
+  format: "$time $metadata[$level] $message\n"
+
 # Use shoehorn to start the main application. See the shoehorn
 # library documentation for more control in ordering how OTP
 # applications are started and handling failures.
@@ -66,7 +80,7 @@ config :mdns_lite,
   # because otherwise any of the devices may respond to nerves.local leading to
   # unpredictable behavior.
 
-  hosts: [:hostname, "nerves"],
+  hosts: [:hostname, "inky-impression-7-3"],
   ttl: 120,
 
   # Advertise the following services over mDNS.
@@ -154,11 +168,12 @@ config :inky_tester, :viewport,
   ]
 
 config :inky_tester, start_button_handler: true
+config :inky_tester, startup_sleep: :timer.seconds(14)
 
 config :mahaul, mix_env: Mix.env()
 
-# config :dash, :timezone, "Pacific/Honolulu"
-config :dash, :timezone, "America/New_York"
+config :dash, :timezone, "Pacific/Honolulu"
+# config :dash, :timezone, "America/New_York"
 config :dash, wait_for_network: true
 config :dash, ecto_repos: [Dash.Repo]
 config :dash, gh_stats_base_url: "http://192.168.1.2:4004"

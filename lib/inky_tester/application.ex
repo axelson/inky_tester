@@ -14,7 +14,11 @@ defmodule InkyTester.Application do
 
     children =
       ([
-         {Scenic, [viewport_config]},
+         if viewport_config do
+           {Scenic, [viewport_config]}
+         else
+           []
+         end,
          start_button_handler(),
          InkyTester.StartupServer
        ] ++ children(target()))
