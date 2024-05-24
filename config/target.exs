@@ -128,7 +128,7 @@ inky_displays = %{
   }
 }
 
-display = inky_displays.phat_ssd1608
+display = inky_displays.impression_5_7
 
 config :inky_tester, :viewport,
   size: display.size,
