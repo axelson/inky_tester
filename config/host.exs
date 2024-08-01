@@ -1,11 +1,13 @@
 import Config
 
+scale = 1
+
 inky_displays = %{
   :impression_7_3 => %{
-    size: {800 * 2, 480 * 2}
+    size: {800 * scale, 480 * scale}
   },
   :phat_ssd1608 => %{
-    size: {250 * 2, 122 * 2}
+    size: {250 * scale, 122 * scale}
   }
 }
 
@@ -59,11 +61,14 @@ config :vintage_net,
   resolvconf: "/dev/null",
   persistence: VintageNet.Persistence.Null
 
-config :dash, :timezone, "Pacific/Honolulu"
+config :dash, :timezone, "America/Chicago"
+# config :dash, :timezone, "Pacific/Honolulu"
 # config :dash, :timezone, "America/New_York"
 config :dash, wait_for_network: true
 config :dash, ecto_repos: [Dash.Repo]
-config :dash, gh_stats_base_url: "http://192.168.1.2:4004"
+# config :dash, gh_stats_base_url: "http://192.168.1.2:4004"
+# config :dash, gh_stats_base_url: "http://localhost:4000"
+config :dash, gh_stats_base_url: "http://localhost:4001"
 
 config :dash, Dash.Repo,
   database: "priv/dash_database.db",
@@ -74,4 +79,4 @@ config :dash, Dash.Repo,
   pool_size: 1
 
 config :dash, locations: []
-config :dash, :scale, 2
+config :dash, :scale, 1
