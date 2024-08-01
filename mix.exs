@@ -51,7 +51,7 @@ defmodule InkyTester.MixProject do
 
       # Needed because we're using the released version of Scenic
       {:nimble_options, "0.5.2", override: true},
-      {:elixir_make, "0.7.7", override: true},
+      {:elixir_make, "0.8.4", override: true},
 
       # Main app
       {:scenic, "~> 0.11.0"},
