@@ -44,8 +44,8 @@ defmodule InkyTester.MixProject do
       # Dependencies for all targets
       {:nerves, "~> 1.10", runtime: false},
       {:shoehorn, "~> 0.9.1"},
-      {:ring_logger, "~> 0.10.0"},
-      {:toolshed, "~> 0.3.0"},
+      {:ring_logger, "~> 0.11.3"},
+      {:toolshed, "~> 0.4.0"},
 
       # Main app
       # {:scenic, "~> 0.11.0"},
@@ -76,7 +76,8 @@ defmodule InkyTester.MixProject do
       # version updates, please review their release notes in case
       # changes to your application are needed.
       {:nerves_system_rpi, "~> 1.19", runtime: false, targets: :rpi},
-      {:nerves_system_rpi0, "~> 1.19", runtime: false, targets: :rpi0},
+      # Stick to 1.27.1 since 1.28.0 doesn't include bcm_host.h
+      {:nerves_system_rpi0, "1.27.1", runtime: false, targets: :rpi0},
       {:nerves_system_rpi2, "~> 1.19", runtime: false, targets: :rpi2},
       {:nerves_system_rpi3, "~> 1.19", runtime: false, targets: :rpi3},
       {:nerves_system_rpi3a, "~> 1.19", runtime: false, targets: :rpi3a},

@@ -22,7 +22,7 @@ defmodule InkyTester.Scene.Home do
     scenic_ver = Application.spec(:scenic, :vsn) |> to_string()
     driver_ver = Application.spec(:scenic_driver_local, :vsn) |> to_string()
 
-    info = "scenic: v#{scenic_ver}\nscenic_driver_local: v#{driver_ver}"
+    info = "scenic: v#{scenic_ver}\ndriver_local: v#{driver_ver}"
 
     date_time_str = NaiveDateTime.utc_now() |> Calendar.strftime("%Y-%m-%d %H:%M")
 
